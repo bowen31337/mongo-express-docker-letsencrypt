@@ -4,12 +4,16 @@ services:
     image: mongo
     container_name: ${MONGO_CONTAINER_NAME}
     volumes:
+      - '${PWD}/mongod.conf:/etc/mongod.conf'
       - '${MONGO_DATA_PATH}/db:/data/db'
       - '${MONGO_DATA_PATH}/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro'
     environment:
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE_NAME}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    # ports:
+    #     - 27017:27017
+    command: ["-f", "/etc/mongod.conf"]
 
   mongo_express:
     image: mongo-express
