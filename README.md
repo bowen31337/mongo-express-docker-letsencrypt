@@ -97,4 +97,13 @@ $ docker-compose up -d
 
 **Please keep in mind that when starting for the first time it may take a few moments (even a couple minutes) to get your Let's Encrypt certificates generated**
 
+5. Basic Authentication Support
+
+In order to be able to secure your virtual host with basic authentication, you must create a htpasswd file within ${NGINX_FILES_PATH}/htpasswd/${VIRTUAL_HOST} via:
+```bash
+sudo sh -c "echo -n '[username]:' >> ${NGINX_FILES_PATH}/htpasswd/${VIRTUAL_HOST}"
+sudo sh -c "openssl passwd -apr1 >> ${NGINX_FILES_PATH}/htpasswd/${VIRTUAL_HOST}"
+```
+Please substitute the ${NGINX_FILES_PATH} with your path information, replace [username] with your username and ${VIRTUAL_HOST} with your host's domain. You will be prompted for a password. [More details](https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion#further-options)
+
 
